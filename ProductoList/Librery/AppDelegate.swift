@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ProductoList
 //
-//  Created by Satoritech 15 on 26/05/22.
+//  Created by Maxeziowolf.
 //
 
 import UIKit
@@ -13,7 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().barStyle = UIBarStyle.black
+        UINavigationBar.appearance().barTintColor = UIColor(named: "PrimeryColor")
+        
         return true
     }
 

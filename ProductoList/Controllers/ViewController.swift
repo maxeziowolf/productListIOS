@@ -2,14 +2,14 @@
 //  ViewController.swift
 //  ProductoList
 //
-//  Created by Satoritech 15 on 26/05/22.
+//  Created by Maxeziowolf.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
     
-    //MARK:
+    //MARK: Outlets
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblCategory: UILabel!
     @IBOutlet weak var lblPriceRegular: UILabel!
@@ -22,9 +22,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var containerCard: UIView!
     
     
-    //Variable
+    //MARK: Variable
     private let timeDelay = 3.0
 
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +53,7 @@ class ViewController: UIViewController {
         
     }
     
+    //MARK: Overrides
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "ListProductSegue" {
@@ -67,6 +69,7 @@ class ViewController: UIViewController {
 
 }
 
+//MARK: Extensions
 extension ViewController: ListProductsDelegate{
     
     func setInformation(product: Product) {
@@ -113,87 +116,6 @@ extension ViewController: ListProductsDelegate{
             
         }
         
-    }
-    
-}
-
-
-extension UIImageView {
-    func downloadedFrom(url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit, animated: Bool = false) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() {
-                
-                if animated {
-                    
-                    UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
-                        
-                        self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-                                
-                    }) { (success) in
-                        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
-                            
-                            self.image = image
-                            self.transform = .identity
-                            
-                        }, completion: nil)
-                    }
-                    
-                }else{
-                    
-                    self.image = image
-                    
-                }
-                
-            }
-            }.resume()
-    }
-    
-    func downloadedFrom(link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit, animated: Bool = false) {
-        
-        guard let url = URL(string: link) else { return }
-        
-        downloadedFrom(url: url, contentMode: mode, animated: animated)
-    }
-}
-
-extension Double{
-    func asMoney() -> String{
-        let formatter = NumberFormatter()
-        formatter.locale = Locale(identifier: "es_MX")
-        formatter.numberStyle = .currency
-        if let formattedTipAmount = formatter.string(from: self as NSNumber) {
-            return formattedTipAmount
-        }
-        else{
-            return "\(self)"
-        }
-    }
-}
-
-extension UILabel {
-    func setTextWithTypeAnimation(typedText: String, characterDelay: TimeInterval = 5.0) {
-        text = ""
-        var writingTask: DispatchWorkItem?
-        writingTask = DispatchWorkItem { [weak weakSelf = self] in
-            for character in typedText {
-                DispatchQueue.main.async {
-                    weakSelf?.text!.append(character)
-                }
-                Thread.sleep(forTimeInterval: characterDelay/100)
-            }
-        }
-        
-        if let task = writingTask {
-            let queue = DispatchQueue(label: "typespeed", qos: DispatchQoS.userInteractive)
-            queue.asyncAfter(deadline: .now() + 0.05, execute: task)
-        }
     }
     
 }

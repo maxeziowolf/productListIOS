@@ -2,11 +2,12 @@
 //  ListProductsViewController.swift
 //  ProductoList
 //
-//  Created by Satoritech 15 on 26/05/22.
+//  Created by Maxeziowolf.
 //
 
 import UIKit
 
+//MARK: Protocolos
 protocol ListProductsDelegate {
     func setInformation(product: Product)
 }
@@ -31,23 +32,27 @@ class ListProductsViewController: UIViewController {
         fetchData()
     }
     
+    //MARK: Setups
     private func setupUI(){
         
         tableviewListProducts.dataSource = self
         tableviewListProducts.delegate = self
+        tableviewListProducts.separatorStyle = .none
+        tableviewListProducts.separatorColor = .clear
+        tableviewListProducts.register(UINib(nibName: "ProductTableViewCell", bundle: nil), forCellReuseIdentifier: "ProductTableViewCell")
+        tableviewListProducts.reloadData()
         
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
+        activityIndicator.transform = activityIndicator.transform.scaledBy(x: 2.0, y: 2.0)
         
     }
     
+    //MARK: Fecth
     private func fetchData(){
         
         
         urlSession.getInformation(){ [weak self] response, messageError in
-            
-            
-            
             
             DispatchQueue.main.async {
                 self!.activityIndicator.stopAnimating()
@@ -66,6 +71,7 @@ class ListProductsViewController: UIViewController {
     
 }
 
+//MARK: Extension
 extension ListProductsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,16 +81,11 @@ extension ListProductsViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell=UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "mycell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath)
+            as! ProductTableViewCell
         
-        cell.textLabel?.text  = genericResponse?.resultado.productos[indexPath.row].nombre
+        cell.setupInformation(product: (genericResponse?.resultado.productos[indexPath.row])!)
         
-        cell.imageView!.image = UIImage(named: "image.product.default")
-        
-        cell.imageView!.downloadedFrom(link: (genericResponse?.resultado.productos[indexPath.row].urlImagenes[0])!, contentMode: .scaleAspectFit)
-        
-        cell.reloadInputViews()
-     
       return cell
     }
     
