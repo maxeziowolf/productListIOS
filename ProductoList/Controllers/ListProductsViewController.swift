@@ -94,7 +94,11 @@ extension ListProductsViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        delegate?.setInformation(product: (genericResponse?.resultado.productos[indexPath.row])!)
+        let product = (genericResponse?.resultado.productos[indexPath.row])!
+        
+        product.category = (genericResponse?.resultado.categoria)!
+        
+        delegate?.setInformation(product: product)
         
         navigationController?.popViewController(animated: true)
         

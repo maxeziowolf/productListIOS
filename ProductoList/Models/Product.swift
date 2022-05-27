@@ -18,6 +18,12 @@ class Product: Codable {
     var nombre: String!
     var precioRegular: Double!
     var urlImagenes: [String]!
+    var codigoCategoria: String!
+    var precioFinal: Double!
+    var descuento: Bool!
+    
+    //Variables
+    var category = ""
 //    "idLinea":5,
 //    "codigoCategoria":"C",
 //    "idModalidad":21,
@@ -41,21 +47,17 @@ class Product: Codable {
 //        }
 //    ],
 //    "sku":"1009286",
-//    "nombre":"Pantalla LED HKPro 32'' HD Smart TV HKP32SM8",
 //    "urlImagenes":[
 //    "https://elektraqa.vteximg.com.br/arquivos/ids/1141189/1009286.jpg?v=637691369840400000",
 //    "https://elektraqa.vteximg.com.br/arquivos/ids/1141190/1009286-d1.jpg?v=637691370447900000"
 //    ],
-//    "precioRegular":6000,
-//    "precioFinal":5000,
 //    "porcentajeDescuento":16.666666666666657,
-//    "descuento":true,
 //    "precioCredito":5000,
 //    "montoDescuento":1000
     
     enum CodingKeys: String, CodingKey {
         
-        case id, nombre, precioRegular, urlImagenes
+        case id, nombre, precioRegular, urlImagenes, codigoCategoria, precioFinal, descuento
         
     }
 }
