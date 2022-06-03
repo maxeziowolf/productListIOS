@@ -83,7 +83,6 @@ extension ListProductsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath)
             as! ProductTableViewCell
-        
         cell.setupInformation(product: (genericResponse?.resultado.productos[indexPath.row])!)
         
       return cell

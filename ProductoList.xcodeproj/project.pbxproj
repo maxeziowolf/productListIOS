@@ -151,7 +151,6 @@
 		3F9AC3702840961E005D3E63 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				3F9AC37928409680005D3E63 /* ProductTableViewCell.swift */,
 				3F9AC37A28409680005D3E63 /* ProductTableViewCell.xib */,
 			);
 			path = Components;
@@ -160,6 +159,7 @@
 		3F9AC3712840962A005D3E63 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				3F9AC37928409680005D3E63 /* ProductTableViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
